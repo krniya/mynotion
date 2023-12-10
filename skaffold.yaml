@@ -22,4 +22,15 @@ build:
         manual:
           - dest: .
             src: 'src/**/*.js'
+    - image: krniya/auth
+      context: auth
+      docker:
+        dockerfile: Dockerfile
+        noCache: false
+        pullParent: false
+        squash: false
+      sync:
+        manual:
+          - dest: .
+            src: 'src/**/*.ts'
 
