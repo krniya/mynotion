@@ -4,8 +4,12 @@ import { Password } from "../utilities/password";
 //* An interface that describes the properties
 //* that are required to create a new user
 interface UserAttribute {
+    full_name: string;
+    avatar_url: string;
     email: string;
     password: string;
+    payment_method: string;
+    updated_at: Date;
 }
 
 //* An interface that describes the properties

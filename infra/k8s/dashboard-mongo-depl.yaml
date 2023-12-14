@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dashboard-mongo-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dashboard-mongo
+  template:
+    metadata:
+      labels:
+        app: dashboard-mongo
+    spec:
+      containers:
+      - name: dashboard-mongo
+        image: mongo
+        resources:
+          limits:
+            memory: "1024Mi"
+            cpu: "500m"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: dashboard-mongo-srv
+spec:
+  selector:
+    app: dashboard-mongo
+  ports:
+  - name: db
+    protocol: TCP
+    port: 27017
+    targetPort: 27017
