@@ -11,7 +11,7 @@ build:
   local:
     push: false
   artifacts:
-    - image: krniya/auth
+    - image: krniya/not-auth
       context: auth
       docker:
         dockerfile: Dockerfile
@@ -22,8 +22,8 @@ build:
         manual:
           - dest: .
             src: 'src/**/*.ts'
-    - image: krniya/dashboard
-      context: dashboard
+    - image: krniya/not-workspace
+      context: workspace
       docker:
         dockerfile: Dockerfile
         noCache: false
@@ -33,7 +33,7 @@ build:
         manual:
           - dest: .
             src: 'src/**/*.ts'
-    - image: krniya/client
+    - image: krniya/not-client
       context: client
       docker:
         dockerfile: Dockerfile

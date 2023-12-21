@@ -20,7 +20,7 @@ spec:
             port: 
               number: 3000
       - pathType: ImplementationSpecific
-        path: "/api/dashboard/?(.*)"
+        path: "/api/workspace/?(.*)"
         backend:
           service:
             name: dashboard-srv

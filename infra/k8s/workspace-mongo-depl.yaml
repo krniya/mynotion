@@ -1,40 +1,36 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dashboard-depl
+  name: workspace-mongo-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: dashboard
+      app: workspace-mongo
   template:
     metadata:
       labels:
-        app: dashboard
+        app: workspace-mongo
     spec:
       containers:
-      - name: dashboard
-        image: krniya/dashboard
+      - name: workspace-mongo
+        image: mongo
         resources:
           limits:
             memory: "1024Mi"
             cpu: "500m"
-        ports:
-        - containerPort: 3001
-
 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: dashboard-srv
+  name: workspace-mongo-srv
 spec:
   selector:
-    app: dashboard
+    app: workspace-mongo
   ports:
-  - name: dashboard
+  - name: db
     protocol: TCP
-    port: 3001
-    targetPort: 3001
-
+    port: 27017
+    targetPort: 27017

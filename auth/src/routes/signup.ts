@@ -1,9 +1,9 @@
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
 import { User } from "../models/users";
-import { BadRequestError } from "../errors/bad-request-error";
+import { BadRequestError } from "@kneeyaa/notionhelper";
 import jwt from "jsonwebtoken";
-import { validateRequest } from "../middlewares/validate-request";
+import { validateRequest } from "@kneeyaa/notionhelper";
 
 const router = express.Router();
 

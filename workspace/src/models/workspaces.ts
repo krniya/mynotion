@@ -1,26 +1,23 @@
 import mongoose from "mongoose";
 
 //* An interface that describes the properties
-//* that are required to create a new user
+//* that are required to create a new workspace
 interface WorkspaceAttribute {
     created_at: Date;
-    workspace_id: string;
+    workspace_user_id: string;
     title: string;
     icon_id: string;
-    data: string;
-    in_trash: boolean;
     logo: string;
-    banner_url: string;
 }
 
-//* An interface that describes the properties
-//* that a user model has
+//* An interface that describes the
+//* properties that a workspace model has
 interface WorkspaceModel extends mongoose.Model<WorkspaceDoc> {
     build(attrs: WorkspaceAttribute): WorkspaceDoc;
 }
 
 //* An interface that describes the properties
-//* that a user document model has
+//* that a workspace document model has
 interface WorkspaceDoc extends mongoose.Document {
     created_at: Date;
     workspace_id: string;
@@ -33,7 +30,7 @@ interface WorkspaceDoc extends mongoose.Document {
 }
 
 //* User Schema
-//* { email, password, toJSON()}
+//* { title, created_at, workspace_onwer_id, icon_id, date, in_trash, logo, banner_url, toJSON()}
 const WorkspaceSchema = new mongoose.Schema(
     {
         title: {
@@ -45,6 +42,7 @@ const WorkspaceSchema = new mongoose.Schema(
         },
         workspace_owner_id: {
             type: String,
+            required: true,
         },
         icon_id: {
             type: String,
@@ -73,12 +71,12 @@ const WorkspaceSchema = new mongoose.Schema(
     }
 );
 
-//* Function to create new user.
-//* using it instead of 'new User' to add type check
+//* Function to create new workspace.
+//* using it instead of 'new Workspace' to add type check
 WorkspaceSchema.statics.build = (attrs: WorkspaceAttribute) => {
-    return new User(attrs);
+    return new Workspace(attrs);
 };
 
-const User = mongoose.model<WorkspaceDoc, WorkspaceModel>("User", WorkspaceSchema);
+const Workspace = mongoose.model<WorkspaceDoc, WorkspaceModel>("Workspace", WorkspaceSchema);
 
-export { User };
+export { Workspace };

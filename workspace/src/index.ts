@@ -4,7 +4,7 @@ import { app } from "./app";
 //* MongoDB connection function
 const startDBConnection = async () => {
     try {
-        await mongoose.connect("mongodb://auth-mongo-srv:27017/auth"); //* Path to mongodb services [kubernetes]
+        await mongoose.connect("mongodb://workspace-mongo-srv:27017/auth"); //* Path to mongodb services [kubernetes]
         console.log("Connected to Auth MongoDB");
     } catch (err) {
         console.log(err);
@@ -12,7 +12,7 @@ const startDBConnection = async () => {
 };
 
 app.listen(3001, () => {
-    console.log("Auth service listening on port 3001!");
+    console.log("Workspace service listening on port 3001!");
 });
 
 //* Connecting to mongoDB
