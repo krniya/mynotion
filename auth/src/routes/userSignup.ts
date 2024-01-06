@@ -1,9 +1,8 @@
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
 import { User } from "../models/users";
-import { BadRequestError } from "@kneeyaa/notionhelper";
 import jwt from "jsonwebtoken";
-import { validateRequest } from "@kneeyaa/notionhelper";
+import { BadRequestError, validateRequest } from "@kneeyaa/notionhelper";
 
 const router = express.Router();
 
@@ -13,6 +12,8 @@ const router = express.Router();
 router.post(
     "/api/users/signup",
     [
+        body("firstName").notEmpty().withMessage("Please provide your fisrt name"),
+        body("lastName").notEmpty().withMessage("Please provide your last name"),
         body("email").isEmail().withMessage("Email must be valid"),
         body("password")
             .trim()
@@ -21,20 +22,22 @@ router.post(
     ],
     validateRequest,
     async (req: Request, res: Response) => {
-        const { email, password } = req.body;
+        const { firstName, lastName, email, password } = req.body;
         //* Checking if email is already been used
         const existingUser = await User.findOne({ email });
         if (existingUser) {
             throw new BadRequestError("Email already in use");
         }
+
         //* User Sign Up
-        const user = User.build({ email, password });
+        const user = User.build({ firstName, lastName, email, password });
         await user.save();
 
         //* Generate JWT
         const userJwt = jwt.sign(
             {
                 id: user.id,
+                name: user.firstName + " " + user.lastName,
                 email: user.email,
             },
             process.env.JWT_KEY!

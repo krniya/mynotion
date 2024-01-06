@@ -2,10 +2,9 @@ import express, { Request, Response } from "express";
 import { body } from "express-validator";
 import jwt from "jsonwebtoken";
 
-import { validateRequest } from "@kneeyaa/notionhelper";
 import { User } from "../models/users";
-import { BadRequestError } from "@kneeyaa/notionhelper";
 import { Password } from "../utilities/password";
+import { BadRequestError, validateRequest } from "@kneeyaa/notionhelper";
 
 const router = express.Router();
 
@@ -40,6 +39,7 @@ router.post(
         const userJwt = jwt.sign(
             {
                 id: existingUser.id,
+                name: existingUser.firstName + " " + existingUser.lastName,
                 email: existingUser.email,
             },
             process.env.JWT_KEY!

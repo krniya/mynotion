@@ -4,7 +4,7 @@ import { app } from "./app";
 //* MongoDB connection function
 const startDBConnection = async () => {
     try {
-        await mongoose.connect("mongodb://auth-mongo-srv:27017/auth"); //* Path to mongodb services [kubernetes]
+        await mongoose.connect(process.env.MONGO_URI!); //* Path to mongodb services [kubernetes]
         console.log("Connected to Auth MongoDB");
     } catch (err) {
         console.log(err);
@@ -16,14 +16,17 @@ const envVariableCheck = () => {
     if (!process.env.JWT_KEY) {
         throw new Error("JWT_KEY must be defined");
     }
+    if (!process.env.MONGO_URI) {
+        throw new Error("MONGO_URI must be defined");
+    }
 };
-
-app.listen(3000, () => {
-    console.log("Auth service listening on port 3000!");
-});
 
 //* Checking environment variable declearation
 envVariableCheck();
 
 //* Connecting to mongoDB
 startDBConnection();
+
+app.listen(3000, () => {
+    console.log("Auth service listening on port 3000!");
+});

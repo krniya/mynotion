@@ -1,6 +1,5 @@
-import express from "express";
-
 import { currentUser } from "@kneeyaa/notionhelper";
+import express from "express";
 
 const router = express.Router();
 

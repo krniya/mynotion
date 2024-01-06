@@ -35,12 +35,16 @@ afterAll(async () => {
 //* Global sign up funtion
 global.signup = async () => {
     //* Test Credentials
+    const firstName = "Test";
+    const lastName = "User";
     const email = "test@test.com";
     const password = "Password";
 
     const response = await request(app)
         .post("/api/users/signup")
         .send({
+            firstName,
+            lastName,
             email,
             password,
         })

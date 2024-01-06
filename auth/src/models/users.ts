@@ -4,12 +4,10 @@ import { Password } from "../utilities/password";
 //* An interface that describes the properties
 //* that are required to create a new user
 interface UserAttribute {
-    // full_name: string;
-    // avatar_url: string;
+    firstName: string;
+    lastName: string;
     email: string;
     password: string;
-    // payment_method: string;
-    // updated_at: Date;
 }
 
 //* An interface that describes the properties
@@ -21,23 +19,42 @@ interface UserModel extends mongoose.Model<UserDoc> {
 //* An interface that describes the properties
 //* that a user document model has
 interface UserDoc extends mongoose.Document {
+    firstName: string;
+    lastName: string;
+    username: string;
     email: string;
     password: string;
+    photo: string;
 }
 
 //* User Schema
-//* { email, password, toJSON()}
+//* {fullname, lastname, email, username, password, photo, toJSON()}
 const userSchema = new mongoose.Schema(
     {
+        firstName: {
+            type: String,
+            required: true,
+        },
+        lastName: {
+            type: String,
+            required: true,
+        },
         email: {
             type: String,
             required: true,
             unique: true,
             lowercase: true,
         },
+        username: {
+            type: String,
+            // unique: true,
+        },
         password: {
             type: String,
             required: true,
+        },
+        photo: {
+            type: String,
         },
     },
     {

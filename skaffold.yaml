@@ -33,6 +33,17 @@ build:
         manual:
           - dest: .
             src: 'src/**/*.ts'
+    - image: krniya/not-folder
+      context: folder
+      docker:
+        dockerfile: Dockerfile
+        noCache: false
+        pullParent: false
+        squash: false
+      sync:
+        manual:
+          - dest: .
+            src: 'src/**/*.ts'
     - image: krniya/not-client
       context: client
       docker:
