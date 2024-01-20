@@ -1,46 +1,41 @@
-
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth-mongo-depl
+  name: folder-mongo-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: auth-mongo
+      app: folder-mongo
   template:
     metadata:
       labels:
-        app: auth-mongo
+        app: folder-mongo
     spec:
       containers:
-      - name: auth-mongo
+      - name: folder-mongo
         image: mongo
         resources:
-          requests:
-            memory: "756Mi"
-            cpu: "450m"
           limits:
             memory: "1024Mi"
             cpu: "500m"
         volumeMounts:
-          - name: mongodb-storage
-            mountPath: /data/db
-      volumes:
-      - name: mongodb-storage
-        persistentVolumeClaim:
-          claimName: auth-mongodb-pvc
+        - name: mongodb-storage
+          mountPath: /data/db
+    volumes:
+    - name: mongodb-storage
+      persistentVolumeClaim:
+        claimName: folder-persistent-volume-claim
 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: auth-mongo-srv
+  name: folder-mongo-srv
 spec:
   selector:
-    app: auth-mongo
+    app: folder-mongo
   ports:
   - name: db
     protocol: TCP

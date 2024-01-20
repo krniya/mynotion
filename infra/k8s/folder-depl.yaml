@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: folder-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: folder
+  template:
+    metadata:
+      labels:
+        app: folder
+    spec:
+      containers:
+      - name: folder
+        image: krniya/not-folder
+        resources:
+          limits:
+            memory: "1024Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3001
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: folder-srv
+spec:
+  selector:
+    app: folder
+  ports:
+  - name: folder
+    protocol: TCP
+    port: 3001
+    targetPort: 3001
+

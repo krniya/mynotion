@@ -5,11 +5,11 @@ import { Workspace } from "../models/workspaces";
 
 const router = express.Router();
 
-// * @desc        Return current logged in user
-// * @route       GET /api/users/currentuser
+// * @desc        Create Workspace
+// * @route       POST /api/workspace
 // * @access      Private
-router.get(
-    "/api/users/currentuser",
+router.post(
+    "/api/workspace/",
     [body("title").notEmpty().withMessage("Please provide title")],
     currentUser,
     validateRequest,
@@ -19,6 +19,7 @@ router.get(
         const { title, logo, icon_id } = req.body;
         const workspace = Workspace.build({ created_at, title, logo, icon_id, workspace_user_id });
         await workspace.save();
+        res.send(201);
     }
 );
 

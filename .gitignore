@@ -131,7 +131,3 @@ dist
 
 */node_modules
 
-# Testing postgres migration in folder service
-folder
-infra/k8s/folder-depl.yaml
-infra/k8s/folder-postgres-depl.yaml
